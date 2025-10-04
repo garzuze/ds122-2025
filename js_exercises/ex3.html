@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+    <title>Exercício 2</title>
+</head>
+<body id="body">
+    <p id="counter">0</p>
+    <button id="increment-button">incremenetar</button>
+    <button id="decrement-button">decrementar</button>
+</body> 
+</html> 
+<script>
+    const counter = document.getElementById('counter');
+    const incrementButton = document.getElementById('increment-button');
+    const decrementButton = document.getElementById('decrement-button');
+    
+    incrementButton.addEventListener('click', () => {
+        const counterValue = Number(counter.textContent);
+        counter.textContent = counterValue + 1 ;
+    })
+    
+    decrementButton.addEventListener('click', () => {
+        const counterValue = Number(counter.textContent);
+        if (counterValue > 0) counter.textContent = counterValue - 1;
+    })
+</script>
+<!-- 
+Exercício 3: Contador de Cliques
+Objetivo: Manipular o conteúdo de texto de um elemento e trabalhar com variáveis em JavaScript.
+Descrição: Crie uma página com:
+Um parágrafo (<p>) que inicia exibindo o número 0.
+Um botão com o texto "Incrementar".
+Cada vez que o botão for clicado, o número exibido no parágrafo deve ser incrementado em 1.
+Conceitos-chave: textContent ou innerText, declaração e atualização de variáveis.
+Desafio Bônus: Adicione um segundo botão, "Decrementar", que diminui o valor do contador. O contador nunca deve ficar abaixo de zero.
+-->

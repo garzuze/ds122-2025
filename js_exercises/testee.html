@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Nome com Animação</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    #nameDisplay {
+      font-size: 2rem;
+      font-weight: bold;
+      white-space: pre; /* preserva os espaços durante o efeito */
+      border-right: 2px solid black; /* cursor de digitação */
+      animation: blink 0.7s infinite;
+      margin-top: 20px;
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    button, input {
+      margin: 10px;
+      padding: 8px 16px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="nameInput" placeholder="Digite seu nome">
+  <button id="showBtn">Mostrar nome</button>
+  <p id="nameDisplay"></p>
+  <button id="colorBtn" style="display: none;">Mudar cor</button>
+
+  <script>
+    const input = document.getElementById("nameInput");
+    const showBtn = document.getElementById("showBtn");
+    const display = document.getElementById("nameDisplay");
+    const colorBtn = document.getElementById("colorBtn");
+
+    // Função de animação typewriter
+    function typeWriter(text, element, callback) {
+      element.textContent = "";
+      let i = 0;
+      const interval = setInterval(() => {
+        element.textContent += text[i];
+        i++;
+        if (i >= text.length) {
+          clearInterval(interval);
+          if (callback) callback();
+        }
+      }, 120); // velocidade da digitação
+    }
+
+    // Evento do botão "Mostrar nome"
+    showBtn.addEventListener("click", () => {
+      const name = input.value.trim();
+      if (!name) {
+        alert("Digite um nome primeiro!");
+        return;
+      }
+      typeWriter(name, display, () => {
+        colorBtn.style.display = "inline-block"; // mostra botão de mudar cor
+      });
+    });
+
+    // Gera cor aleatória em formato hexadecimal
+    function randomColor() {
+      return "#" + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, "0");
+    }
+
+    // Evento do botão "Mudar cor"
+    colorBtn.addEventListener("click", () => {
+      display.style.color = randomColor();
+    });
+  </script>
+</body>
+</html>

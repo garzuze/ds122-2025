@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        #typed-name {
+            font-size: 64px;
+            white-space: pre;
+            border-right-width: 6px;
+            border-right-style: solid;
+            animation: blink 0.7s infinite;
+        }
+
+        #color-btn {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" placeholder="Digite seu nome" id="name" />
+    <button type="button" id="type-btn">Clica em mim!</button>
+    <p id="typed-name"></p>
+    <button type="button" id="color-btn">Mudar cor</button>
+</body>
+
+</html>
+<script>
+    const nameInput = document.getElementById('name');
+    const typeNameButton = document.getElementById('type-btn');
+    const typedNameP = document.getElementById('typed-name');
+    const colorButton = document.getElementById('color-btn');
+
+    typeNameButton.addEventListener('click', () => {
+        const name = nameInput.value.trim();
+        if (name.length === 0) {
+            alert('Digite seu nome, por favor!')
+            return;
+        }
+        typeWritter(name, typedNameP, () => {
+            colorButton.style.display = 'block';
+        })
+        nameInput.value = '';
+    })
+    
+    colorButton.addEventListener('click', () => {
+        typedNameP.style.borderRightColor, typedNameP.style.color = generateHexColor();
+    })
+
+    function typeWritter(text, element, callback) {
+        let i = 0;
+        element.textContent = '';
+        const type = setInterval(() => {
+            element.textContent += text[i]
+            i++;
+            if (i === text.length) {
+                clearInterval(type);
+                callback();
+            };
+        }, 300)
+    }
+
+    function generateHexColor() {
+        return '#' + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0');
+    }
+</script>

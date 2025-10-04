@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+    <title>Exercício 2</title>
+</head>
+<body id="body">
+    <button class="color-button" type="button" data-color="red">Vermelho</button>
+    <button class="color-button" type="button" data-color="blue">Azul</button>
+    <button class="color-button" type="button" data-color="pink">Rosa</button>
+    <button type="button" id="random">Aleatório</button>
+</body> 
+</html> 
+<script>    
+    const colorButtons = document.querySelectorAll('.color-button');
+    const randomColorButton = document.getElementById('random');
+    const body = document.getElementById('body');
+
+    colorButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            body.style.backgroundColor = button.dataset.color;
+        })
+    });
+
+    randomColorButton.addEventListener('click', () => {
+        body.style.backgroundColor = generateHexColor();
+    })
+
+    function generateHexColor() {
+        return "#" + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, "0");
+    }
+</script>
+<!-- 
+Objetivo: Praticar a manipulação de estilos CSS através do JavaScript.
+Descrição: Desenvolva uma página com:
+Três ou mais botões, cada um representando uma cor (ex: "Vermelho", "Verde", "Azul").
+Ao clicar em um dos botões, o <body> da página deve ter sua cor de fundo (backgroundColor) alterada para a cor correspondente.
+Conceitos-chave: document.querySelector(), element.style, manipulação de múltiplos elementos.
+Desafio Bônus: Adicione um botão "Aleatório" que, ao ser clicado, muda a cor de fundo para uma cor hexadecimal gerada aleatoriamente (ex: #f1f5f8).
+-->

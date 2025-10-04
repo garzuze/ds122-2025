@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+    <title>Exercicio 4</title>
+    <style>
+    </style>
+</head>
+<body>
+    <input type="text" id="task" placeholder="digite sua tarefa meu mano" />
+    <button type="button" id="add-task">Adicionar tarefa</button>
+    <ul id="tasks">
+
+    </ul>
+</body>
+</html>
+<script>
+    const taskInput = document.getElementById('task');
+    const addTaskButton = document.getElementById('add-task');
+    const taskListElement = document.getElementById('tasks');
+    const tasks = [];
+
+    addTaskButton.addEventListener('click', () => {
+        const task = taskInput.value.trim();
+        if (task.length === 0) {
+            alert('você precisa digitar uma tarefa');
+            return;
+        }
+        tasks.push(task);
+        taskInput.value = '';
+        updateTaskList();
+    })
+
+    function createTaskElement(task, taskId) {
+        const newTaskElement = document.createElement('li');
+        newTaskElement.textContent = task;
+        newTaskElement.id = taskId;
+
+        newTaskElement.addEventListener('click', () => {
+            newTaskElement.style.textDecoration = 'line-throughgit stauts';
+        })
+
+        const deleteButton = createDeleteButton(taskId);
+        deleteButton.addEventListener('click', () => {
+            tasks.splice(taskId, 1);
+            updateTaskList();
+        })
+        newTaskElement.appendChild(deleteButton)
+
+        return newTaskElement;
+    }
+
+    function createDeleteButton(taskId) {
+        const deleteTaskButton = document.createElement('button');
+        deleteTaskButton.id = `delete-${taskId}`
+        deleteTaskButton.className = 'delete-task'
+        deleteTaskButton.dataset.task = taskId;
+        deleteTaskButton.textContent = '✖';
+
+        return deleteTaskButton;
+    }
+
+    function appendDeletebutton(taskId) {
+        const taskElement = document.getElementById(taskId);
+        taskElement.append(createDeleteButton(taskId)); 
+    }
+
+    function updateTaskList() {
+        taskListElement.innerHTML = '';
+        tasks.map((task, taskId) => {
+            taskListElement.appendChild(createTaskElement(task, taskId));
+        })
+    }
+    
+</script>
+<!-- 
+Objetivo: Praticar a criação, adição e remoção de elementos no DOM de forma dinâmica.
+Descrição: Construa uma interface de lista de tarefas que permita ao usuário:
+Digitar uma nova tarefa em um campo de texto (<input type="text">).
+Clicar em um botão "Adicionar" para que a tarefa seja inserida como um novo item (<li>) em uma lista não ordenada (<ul>) na página.
+Cada item da lista deve ter um botão "Remover" ao seu lado. Ao ser clicado, este botão deve excluir o item da lista correspondente.
+Conceitos-chave: document.createElement(), element.appendChild(), element.remove(), event.target.
+Desafio Bônus: Adicione uma funcionalidade para que, ao clicar no texto de uma tarefa, ela seja marcada como "concluída" (por exemplo, aplicando um estilo de texto riscado com text-decoration: line-through).
+-->
